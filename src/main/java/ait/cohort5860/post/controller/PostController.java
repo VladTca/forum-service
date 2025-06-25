@@ -6,7 +6,9 @@ import ait.cohort5860.post.dto.NewPostDto;
 import ait.cohort5860.post.dto.PostDto;
 import ait.cohort5860.post.service.PostService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -17,6 +19,8 @@ import java.util.List;
 public class PostController {
     private final PostService postService;
 
+
+    @ResponseStatus(HttpStatus.CREATED)
     public PostDto addPost(String author, NewPostDto newPostDto) {
         return null;
     }
@@ -55,7 +59,7 @@ public class PostController {
         return null;
     }
 
-
+@ResponseStatus(HttpStatus.NO_CONTENT)
     public void addLike(Long id) {
 
     }
