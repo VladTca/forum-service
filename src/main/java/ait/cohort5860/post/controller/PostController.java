@@ -9,6 +9,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
@@ -72,7 +73,7 @@ public class PostController {
 
     @ResponseStatus(HttpStatus.OK)
     @GetMapping("/period")
-    public List<PostDto> findPostsByPeriod(@RequestParam String startDate, @RequestParam String endDate) {
+    public List<PostDto> findPostsByPeriod(@RequestParam LocalDateTime startDate, @RequestParam LocalDateTime endDate) {
         return postService.findPostsByPeriod(startDate, endDate);
     }
 

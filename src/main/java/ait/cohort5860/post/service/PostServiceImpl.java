@@ -1,27 +1,55 @@
 package ait.cohort5860.post.service;
 
 
+import ait.cohort5860.post.dao.PostRepository;
+import ait.cohort5860.post.dao.TagRepository;
 import ait.cohort5860.post.dto.CommentDto;
 import ait.cohort5860.post.dto.NewCommentsDto;
 import ait.cohort5860.post.dto.NewPostDto;
 import ait.cohort5860.post.dto.PostDto;
+import ait.cohort5860.post.dto.exeption.NotFoundException;
+import ait.cohort5860.post.model.Post;
+import ait.cohort5860.post.model.Tag;
+import lombok.RequiredArgsConstructor;
+import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Set;
 
 @Service
-public class PostServiceImpl implements PostService{
+@RequiredArgsConstructor
+public class PostServiceImpl implements PostService {
+
+
+    private final PostRepository postRepository;
+    private final ModelMapper modelMapper;
+    private final TagRepository tagRepository;
 
 
     @Override
+    @Transactional
     public PostDto addPost(String author, NewPostDto newPostDto) {
-        return null;
-    }
+        Post post =new Post(newPostDto.getTitle(),newPostDto.getContent(),author);
+        Set<String> tags = newPostDto.getTags();
+        //Handle tag
+        if(tags!=null) {
+            for(String tagName:tags) {
+                Tag tag = tagRepository.findById(tagName).orElseGet(() -> tagRepository.save(new Tag(tagName)));
+                post.addTag(tag);
+            }
+        }
+        post = postRepository.save(post);
+        return modelMapper.map(post,PostDto.class);
+
+     }
 
     @Override
     public PostDto findPostById(Long id) {
-        return null;
+        Post post= postRepository.findById(id).orElseThrow(NotFoundException::new);
+        return  modelMapper.map(post,PostDto.class);
     }
 
     @Override
@@ -50,7 +78,7 @@ public class PostServiceImpl implements PostService{
     }
 
     @Override
-    public List<PostDto> findPostsByPeriod(String startDate, String endDate) {
+    public List<PostDto> findPostsByPeriod(LocalDateTime startDate, LocalDateTime endDate) {
         return List.of();
     }
 
