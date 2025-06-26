@@ -9,6 +9,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -60,19 +62,22 @@ public class PostController {
         return postService.deletePost(id);
     }
 
-@ResponseStatus(HttpStatus.OK)
-@GetMapping("/tag")
-    public List<PostDto> findPostsByTag(@RequestParam Set<String> tags) {
+    @ResponseStatus(HttpStatus.OK)
+    @GetMapping("/tags")
+    public List<PostDto> findPostsByTag(@RequestParam("values") String values) {
+        String[] arr = values.split(",");
+        Set<String> tags = new HashSet<>(Arrays.asList(arr));
         return postService.findPostsByTag(tags);
     }
 
-@ResponseStatus(HttpStatus.OK)
-@GetMapping("/period")
+    @ResponseStatus(HttpStatus.OK)
+    @GetMapping("/period")
     public List<PostDto> findPostsByPeriod(@RequestParam String startDate, @RequestParam String endDate) {
         return postService.findPostsByPeriod(startDate, endDate);
     }
-@ResponseStatus(HttpStatus.OK)
-@PatchMapping("/{id}")
+
+    @ResponseStatus(HttpStatus.OK)
+    @PatchMapping("/{id}")
     public PostDto updatePost(@PathVariable Long id, @RequestBody NewPostDto newPostDto) {
         return postService.updatePost(id, newPostDto);
     }
