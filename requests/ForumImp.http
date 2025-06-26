@@ -1,0 +1,108 @@
+
+
+
+
+
+# Forum
+
+###
+# @name Add Post
+POST localhost:8080/forum/post/{{user}}
+Content-Type: application/json
+
+{
+  "title": "JavaEE",
+  "content": "Java is the best for backend",
+  "tags": [
+    "Java",
+    "Spring",
+    "backend",
+    "JEE"
+  ]
+}
+
+<> ./Forum_responses/add_post.201.json
+// localhost:8080/forum/post/{{user}}
+
+###
+# @name Find post by id
+GET localhost:8080/forum/post/{{postId}}
+
+<> ./Forum_responses/find_post_by_id_success.200.json
+// localhost:8080/forum/post/{{postId}}
+<> ./Forum_responses/find_post_by_id_error.404.json
+// localhost:8080/forum/post/{{postId}}
+
+###
+# @name Add like
+PATCH localhost:8080/forum/post/{{postId}}/like
+
+<> ./Forum_responses/add_like_success.204.txt
+// localhost:8080/forum/post/{{postId}}/like
+<> ./Forum_responses/add_like_success_error.404.txt
+// localhost:8080/forum/post/{{postId}}/like
+
+###
+# @name Find posts by author
+GET localhost:8080/forum/posts/author/{{user}}
+
+<> ./Forum_responses/find_posts_by_author.200.json
+// localhost:8080/forum/posts/author/{{user}}
+
+###
+# @name Add comment
+PATCH localhost:8080/forum/post/{{postId}}/comment/{{commenter}}
+Content-Type: application/json
+
+{
+  "message": "Awesome!!!"
+}
+
+<> ./Forum_responses/add_comment_success.200.json
+// localhost:8080/forum/post/{{postId}}/comment/{{commenter}}
+<> ./Forum_responses/add_comment_error.404.json
+// localhost:8080/forum/post/{{postId}}/comment/{{commenter}}
+
+###
+# @name Delete post
+DELETE localhost:8080/forum/post/{{postId}}
+
+<> ./Forum_responses/delete_post_error.404.json
+// localhost:8080/forum/post/{{postId}}
+<> ./Forum_responses/delete_post_success.200.json
+// localhost:8080/forum/post/{{postId}}
+
+###
+# @name Find posts by tags
+GET localhost:8080/forum/posts/tags?
+    values=python,java,j2ee
+
+<> ./Forum_responses/find_posts_by_tags.200.json
+// localhost:8080/forum/posts/tags?values=python,java,j2ee
+
+###
+# @name Find posts by period
+GET localhost:8080/forum/posts/period?
+    dateFrom=2020-08-25&
+    dateTo=2024-08-21
+
+<> ./Forum_responses/find_posts_by_period.200.json
+// localhost:8080/forum/posts/period?dateFrom=2020-08-25&dateTo=2024-08-21
+
+###
+# @name Update post
+PATCH localhost:8080/forum/post/{{postId}}
+Content-Type: application/json
+
+{
+  "title": "Jakarta EE",
+  "tags": [
+    "Jakarta EE",
+    "J2EE"
+  ]
+}
+
+<> ./Forum_responses/update_post_success.200.json
+// localhost:8080/forum/post/{{postId}}
+<> ./Forum_responses/update_post_error.404.json
+// localhost:8080/forum/post/{{postId}}

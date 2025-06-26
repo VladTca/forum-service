@@ -6,17 +6,25 @@ import ait.cohort5860.post.dto.NewPostDto;
 import ait.cohort5860.post.dto.PostDto;
 
 import java.util.List;
+import java.util.Set;
 
 public interface PostService {
     PostDto addPost(String author, NewPostDto newPostDto);
+
     PostDto findPostById(Long id);
-    List<PostDto> findPostByAuthor(String author);
+
+    void addLike(Long id);
+
+    List<PostDto> findPostsByAuthor(String author);
+
     CommentDto addComment(Long id,String author, NewCommentsDto newCommentsDto);
+
     PostDto deletePost(Long id);
-    List<PostDto> findPostsByTag(String tag);
+
+    List<PostDto> findPostsByTag(Set<String> tags);
+
     List<PostDto> findPostsByPeriod(String startDate, String endDate);
     PostDto updatePost(Long id, NewPostDto newPostDto);
 
-    void addLike(Long id);
 
 }

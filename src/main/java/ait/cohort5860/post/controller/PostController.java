@@ -7,60 +7,74 @@ import ait.cohort5860.post.dto.PostDto;
 import ait.cohort5860.post.service.PostService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseStatus;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Set;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/forum")
+@RequestMapping("/forum/post")
 public class PostController {
+
+
     private final PostService postService;
 
 
     @ResponseStatus(HttpStatus.CREATED)
-    public PostDto addPost(String author, NewPostDto newPostDto) {
-        return null;
+    @PostMapping("/{author}")
+    public PostDto addPost(@PathVariable String author, @RequestBody NewPostDto newPostDto) {
+        return postService.addPost(author, newPostDto);
+
+    }
+
+    @GetMapping("/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    public PostDto findPostById(@PathVariable Long id) {
+
+        return postService.findPostById(id);
+    }
+
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    @PatchMapping("/{id}/like")
+    public void addLike(@PathVariable Long id) {
     }
 
 
-    public PostDto findPostById(Long id) {
-        return null;
+    @GetMapping("/author/{author}")
+    @ResponseStatus(HttpStatus.OK)
+    public List<PostDto> findPostsByAuthor(@PathVariable String author) {
+        return postService.findPostsByAuthor(author);
     }
 
 
-    public List<PostDto> findPostByAuthor(String author) {
-        return List.of();
+    @PatchMapping("/{id}/comment/{author}")
+    @ResponseStatus(HttpStatus.OK)
+    public CommentDto addComment(@PathVariable Long id, @PathVariable String author, @RequestBody NewCommentsDto newCommentsDto) {
+        return postService.addComment(id, author, newCommentsDto);
     }
 
-
-    public CommentDto addComment(Long id, String author, NewCommentsDto newCommentsDto) {
-        return null;
+    @ResponseStatus(HttpStatus.OK)
+    @DeleteMapping("/{id}")
+    public PostDto deletePost(@PathVariable Long id) {
+        return postService.deletePost(id);
     }
 
-
-    public PostDto deletePost(Long id) {
-        return null;
+@ResponseStatus(HttpStatus.OK)
+@GetMapping("/tag")
+    public List<PostDto> findPostsByTag(@RequestParam Set<String> tags) {
+        return postService.findPostsByTag(tags);
     }
 
-
-    public List<PostDto> findPostsByTag(String tag) {
-        return List.of();
+@ResponseStatus(HttpStatus.OK)
+@GetMapping("/period")
+    public List<PostDto> findPostsByPeriod(@RequestParam String startDate, @RequestParam String endDate) {
+        return postService.findPostsByPeriod(startDate, endDate);
+    }
+@ResponseStatus(HttpStatus.OK)
+@PatchMapping("/{id}")
+    public PostDto updatePost(@PathVariable Long id, @RequestBody NewPostDto newPostDto) {
+        return postService.updatePost(id, newPostDto);
     }
 
-
-    public List<PostDto> findPostsByPeriod(String startDate, String endDate) {
-        return List.of();
-    }
-
-    public PostDto updatePost(Long id, NewPostDto newPostDto) {
-        return null;
-    }
-
-@ResponseStatus(HttpStatus.NO_CONTENT)
-    public void addLike(Long id) {
-
-    }
 }
