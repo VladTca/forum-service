@@ -88,10 +88,11 @@ public class PostServiceImpl implements PostService {
     }
 
     @Override
+    @Transactional
     public PostDto deletePost(Long id) {
         Post post = postRepository.findById(id).orElseThrow(NotFoundException::new);
         postRepository.delete(post);
-        return null;
+        return modelMapper.map(post, PostDto.class);
     }
 
     @Override
@@ -150,7 +151,7 @@ public class PostServiceImpl implements PostService {
             }
         }
 
-        post = postRepository.save(post);
+        post = postRepository.save(post); //  лучше писать анотацию трансакшенал и тогда не нада делать сейв, но это тока для апдейта
         return modelMapper.map(post, PostDto.class);
     }
 }
