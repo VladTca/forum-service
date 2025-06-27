@@ -1,8 +1,8 @@
 #Forum
 
 @host = http://localhost:8080/forum/post
-@user = JavaFan
-@postId = 9
+@user = JavaSCFan
+@postId = 11
 @commenter = Stranger
 
 
