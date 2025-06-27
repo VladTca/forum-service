@@ -1,0 +1,13 @@
+spring:
+  application:
+    name: forum-service
+  datasource:
+    url: jdbc:postgresql://cohort5860-cohort5860fs.c.aivencloud.com:12564/defaultdb
+    username: avnadmin
+    password: ${AIVEN_PASS}
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+  liquibase:
+    change-log: classpath:db/changelog/db.changelog-master.yaml
