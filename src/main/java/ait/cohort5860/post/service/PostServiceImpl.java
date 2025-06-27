@@ -66,6 +66,7 @@ public class PostServiceImpl implements PostService {
     }
 
     @Override
+    @Transactional(readOnly = true)
     public List<PostDto> findPostsByAuthor(String author) {
         List<Post> posts = postRepository.findPostsByAuthorIgnoreCase(author);
         List<PostDto> result = new ArrayList<>();
@@ -80,7 +81,7 @@ public class PostServiceImpl implements PostService {
     public CommentDto addComment(Long id, String author, NewCommentsDto newCommentsDto) {
         Post post = postRepository.findById(id).orElseThrow(NotFoundException::new);
         Comment comment = new Comment(author, newCommentsDto.getMessage());
-        comment.setPost(post);
+        comment.setPost(post);   //  для внутренней связи между таблицами
         post.addComment(comment);
         comment = commentRepository.save(comment);
         postRepository.save(post);
@@ -96,6 +97,7 @@ public class PostServiceImpl implements PostService {
     }
 
     @Override
+    @Transactional(readOnly = true)
     public List<PostDto> findPostsByTag(Set<String> tags) {
         List<Post> posts = new ArrayList<>();
         List<PostDto> res = new ArrayList<>();
@@ -119,6 +121,7 @@ public class PostServiceImpl implements PostService {
     }
 
     @Override
+    @Transactional(readOnly = true)
     public List<PostDto> findPostsByPeriod(LocalDateTime startDate, LocalDateTime endDate) {
         List<Post> posts = postRepository.findAll();
         List<PostDto> res = new ArrayList<>();
