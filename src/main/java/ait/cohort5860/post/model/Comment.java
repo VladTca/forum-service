@@ -1,30 +1,27 @@
 package ait.cohort5860.post.model;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.time.LocalDateTime;
-
 
 
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
-@EqualsAndHashCode(of="id")
+@EqualsAndHashCode(of = "id")
 @Entity
-@Table(name="comments")
+@Table(name = "comments")
 public class Comment {
     @Id
     @GeneratedValue
     private Long id;
     private String username;
     private String message;
-    private LocalDateTime dateCreated=LocalDateTime.now();
+    private LocalDateTime dateCreated = LocalDateTime.now();
     private int likes;
 
+    @Setter
     @ManyToOne
     private Post post;
 
@@ -32,7 +29,9 @@ public class Comment {
         this.username = username;
         this.message = message;
     }
-    public void addLike(){
+
+    public void addLike() {
         likes++;
     }
+
 }

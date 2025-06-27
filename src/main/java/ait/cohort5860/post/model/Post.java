@@ -44,7 +44,7 @@ public class Post {
     }
 
 
-    public Post(String title, String content, String author,Set<String> tags) {
+    public Post(String title, String content, String author, Set<String> tags) {
         this.title = title;
         this.content = content;
         this.author = author;
@@ -60,6 +60,7 @@ public class Post {
     }
 
     public boolean addTag(Tag tag) {
+
         return tags.add(tag);
     }
 }

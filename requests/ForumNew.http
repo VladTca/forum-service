@@ -2,7 +2,7 @@
 
 @host = http://localhost:8080/forum/post
 @user = JavaFan
-@postId = 66c440a0b1c42860d4320476
+@postId = 9
 @commenter = Stranger
 
 
@@ -56,7 +56,7 @@ GET {{host}}/tags?values=python,java,j2ee
 ###
 
 # Find posts by period
-GET {{host}}/period?dateFrom=2020-08-25&dateTo=2024-08-21
+GET {{host}}/period?dateFrom=2020-08-25&dateTo=2026-08-21
 
 ###
 

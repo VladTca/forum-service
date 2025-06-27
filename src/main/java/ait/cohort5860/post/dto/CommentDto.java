@@ -12,8 +12,8 @@ import lombok.NoArgsConstructor;
 public class CommentDto {
     @JsonProperty("user")
     private String username;
-   private String message;
-   private String dateCreated;
-   private long likes;
+    private String message;
+    private String dateCreated;
+    private long likes;
 }
 
