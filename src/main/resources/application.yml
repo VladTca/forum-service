@@ -7,7 +7,8 @@ spring:
     password: ${AIVEN_PASS}
   jpa:
     hibernate:
-      ddl-auto: update
+#      auto ставим внмзу чтоб гибернет сам создавал струтуру бд , а если создаем сами в ликвидбейс то ставим нон
+      ddl-auto: none
     show-sql: true
   liquibase:
     change-log: classpath:db/changelog/db.changelog-master.yaml

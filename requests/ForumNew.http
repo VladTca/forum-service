@@ -2,7 +2,7 @@
 
 @host = http://localhost:8080/forum/post
 @user = JavaSCFan
-@postId = 10
+@postId = 1
 @commenter = Stranger
 
 
