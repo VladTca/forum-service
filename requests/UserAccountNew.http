@@ -1,0 +1,65 @@
+### VARIABLES
+// @import ./UserAccountVariables.http
+
+
+###
+
+### Register
+POST {{baseUrl}}/register
+Content-Type: application/json
+
+{
+  "login": "JavaFan",
+  "password": "1234",
+  "firstName": "John",
+  "lastName": "Smith"
+}
+
+###
+
+### Login
+POST {{baseUrl}}/login
+Authorization: Basic SmF2YUZhbjo0MzIx
+
+###
+
+### Delete user
+DELETE {{baseUrl}}/user/{{user}}
+Authorization: Basic SmF2YUZhbjo0MzIx
+
+###
+
+### Update user
+PATCH {{baseUrl}}/user/{{user}}
+Authorization: Basic SmF2YUZhbjo0MzIx
+Content-Type: application/json
+
+{
+  "firstName": "John",
+  "lastName": "Smith"
+}
+
+###
+
+### Add role
+PATCH {{baseUrl}}/user/{{user}}/role/{{role}}
+Authorization: Basic YWRtaW46YWRtaW4=
+
+###
+
+### Delete role
+DELETE {{baseUrl}}/user/{{user}}/role/{{role}}
+Authorization: Basic YWRtaW46YWRtaW4=
+
+###
+
+### Change password
+PATCH {{baseUrl}}/password
+Authorization: Basic SmF2YUZhbjo0MzIx
+X-Password: 1234
+
+###
+
+### Get user
+GET {{baseUrl}}/user/{{user}}
+Authorization: Basic U3RyYW5nZXI6MTIzNA==

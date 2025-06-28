@@ -1,0 +1,103 @@
+# UserAccount
+
+###
+# @name Register
+POST {{baseUrl}}/register
+Content-Type: application/json
+
+{
+  "login": "JavaFan",
+  "password": "1234",
+  "firstName": "John",
+  "lastName": "Smith"
+}
+
+<> ./UserAccount_responses/user_register_success.200.txt
+// {{baseUrl}}/register
+<> ./UserAccount_responses/user_register_conflict.409.txt
+// {{baseUrl}}/register
+
+###
+# @name Login
+POST {{baseUrl}}/login
+Authorization: Basic JavaFan 4321
+
+<> ./UserAccount_responses/user_login_success.200.txt
+// {{baseUrl}}/login
+<> ./UserAccount_responses/user_login_401.401.txt
+// {{baseUrl}}/login
+
+###
+# @name Delete user
+DELETE {{baseUrl}}/user/{{user}}
+Authorization: Basic JavaFan 4321
+
+<> ./UserAccount_responses/delete_user_success.200.txt
+// {{baseUrl}}/user/{{user}}
+<> ./UserAccount_responses/delete_user_401.401.txt
+// {{baseUrl}}/user/{{user}}
+<> ./UserAccount_responses/delete_user_403.403.txt
+// {{baseUrl}}/user/{{user}}
+
+###
+# @name Update user
+PATCH {{baseUrl}}/user/{{user}}
+Authorization: Basic JavaFan 4321
+Content-Type: application/json
+
+{
+  "firstName": "John",
+  "lastName": "Smith"
+}
+
+<> ./UserAccount_responses/user_update_success.200.txt
+// {{baseUrl}}/user/{{user}}
+<> ./UserAccount_responses/user_update_401.401.txt
+// {{baseUrl}}/user/{{user}}
+<> ./UserAccount_responses/user_update_403.403.txt
+// {{baseUrl}}/user/{{user}}
+
+###
+# @name Add role
+PATCH {{baseUrl}}/user/{{user}}/role/{{role}}
+Authorization: Basic admin admin
+
+<> ./UserAccount_responses/add_role_success.200.txt
+// {{baseUrl}}/user/{{user}}/role/{{role}}
+<> ./UserAccount_responses/add_role_401.401.txt
+// {{baseUrl}}/user/{{user}}/role/{{role}}
+<> ./UserAccount_responses/add_role_403.403.txt
+// {{baseUrl}}/user/{{user}}/role/{{role}}
+
+###
+# @name Delete role
+DELETE {{baseUrl}}/user/{{user}}/role/{{role}}
+Authorization: Basic admin admin
+
+<> ./UserAccount_responses/delete_role_success.200.txt
+// {{baseUrl}}/user/{{user}}/role/{{role}}
+<> ./UserAccount_responses/delete_role_401.401.txt
+// {{baseUrl}}/user/{{user}}/role/{{role}}
+<> ./UserAccount_responses/delete_role_403.403.txt
+// {{baseUrl}}/user/{{user}}/role/{{role}}
+
+###
+# @name Change password
+PATCH {{baseUrl}}/password
+Authorization: Basic JavaFan 1234
+X-Password: 1234
+
+<> ./UserAccount_responses/change_password_success.204.txt
+// {{baseUrl}}/password
+<> ./UserAccount_responses/change_password_401.401.txt
+// {{baseUrl}}/password
+
+###
+# @name Get user
+GET {{baseUrl}}/user/{{user}}
+Authorization: Basic Stranger 1234
+
+<> ./UserAccount_responses/get_user_success.200.json
+// {{baseUrl}}/user/{{user}}
+<> ./UserAccount_responses/get_user_401.401.json
+// {{baseUrl}}/user/{{user}}
